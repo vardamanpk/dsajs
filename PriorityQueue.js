@@ -28,17 +28,18 @@ class PriorityQueue{
         const max = this.values[0];
         const node = this.values.pop();
         if(!this.values.length){
-            this.values[0] = node;
+            return max;
         }
+        this.values[0] = node;
         this.bubbleDown(node);
         return max;
     }
     bubbleDown(node){
-        let current = null;
-        let swapIndex;
         const len = this.values.length;
         let i = 0;
         while(true){
+            let swapIndex;
+            let current;
             let leftChildIndex = i * 2 + 1;
             let rightChildIndex = i * 2 + 2;
             if(leftChildIndex<len){
@@ -50,7 +51,7 @@ class PriorityQueue{
             }
             if(rightChildIndex < len){
                 let rightChild = this.values[rightChildIndex];
-                if(rightChild.priority < node.priority && current && rightChild.priority < current.priority){
+                if(rightChild.priority < node.priority && (!current || rightChild.priority < current.priority)){
                     current = rightChild;
                     swapIndex = rightChildIndex;
                 }
